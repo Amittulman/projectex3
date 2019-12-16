@@ -2,19 +2,14 @@
 // Created by amittulman on 16/12/2019.
 //
 
-#include "lexer.h"
 #include <string>
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include <string>
 #include <algorithm>
 
-guy
+using namespace std;
 
-
-
-//vector<string> Lexer::split() {
 int main(){
   vector<string> lexedVector;
 

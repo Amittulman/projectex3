@@ -5,7 +5,6 @@
 #ifndef PROJECTEX3__LEXER_H_
 #define PROJECTEX3__LEXER_H_
 
-#endif //PROJECTEX3__LEXER_H_
 #include <unordered_map>
 #include <list>
 #include <fstream>
@@ -17,3 +16,5 @@ using namespace std;
 class Lexer {
   vector<string> split();
 };
+
+#endif //PROJECTEX3__LEXER_H_
