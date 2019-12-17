@@ -8,10 +8,14 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include <string.h>
+#include <string>
 
+#include "client.h"
 
-int server::openServer(int port)
-{
+using namespace std;
+
+int server::openServer(string port) {
+  int portNum = stoi(port);
   //create socket
   int socketfd = socket(AF_INET, SOCK_STREAM, 0);
   if (socketfd == -1) {
@@ -25,7 +29,7 @@ int server::openServer(int port)
   sockaddr_in address; //in means IP4
   address.sin_family = AF_INET;
   address.sin_addr.s_addr = INADDR_ANY; //give me any IP allocated for my machine
-  address.sin_port = htons(port);
+  address.sin_port = htons(portNum);
   //we need to convert our number
   // to a number that the network understands.
 
@@ -53,7 +57,7 @@ int server::openServer(int port)
     return -4;
   }
 
-  close(socketfd); //closing the listening socket
+  //close(socketfd); //closing the listening socket
 
   //reading from client
   char buffer[1024] = {0};

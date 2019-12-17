@@ -11,9 +11,12 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <string.h>
+using namespace std;
 
-int client::openClient(string ip, int port)
+int client::openClient(string ip, string port)
 {
+  const char *cstr = ip.c_str();
+  int portNum = stoi(port);
   //create socket
   int client_socket = socket(AF_INET, SOCK_STREAM, 0);
   if (client_socket == -1) {
@@ -25,8 +28,8 @@ int client::openClient(string ip, int port)
   //We need to create a sockaddr obj to hold address of server
   sockaddr_in address; //in means IP4
   address.sin_family = AF_INET;//IP4
-  address.sin_addr.s_addr = inet_addr("127.0.0.1");  //the localhost address
-  address.sin_port = htons(5402);
+  address.sin_addr.s_addr = inet_addr(cstr);  //the localhost address
+  address.sin_port = htons(portNum);
   //we need to convert our number (both port & localhost)
   // to a number that the network understands.
 

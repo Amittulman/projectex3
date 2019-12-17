@@ -12,6 +12,6 @@ using namespace std;
 
 int openServerCommand::execute (vector<string> vecServer) {
   server* curServer = new server();
-  curServer->openServer(stoi(vecServer.at(0))); //open server
+  curServer->openServer(vecServer.at(0)); //open server
 
 }

@@ -19,12 +19,12 @@ int main() {
 
 
  //srever try
-/*  openServerCommand* s1 = new openServerCommand();
-  vector<string> vec = {"5400"};
-  s1->execute(vec);*/
+//  openServerCommand* s1 = new openServerCommand();
+//  vector<string> vec = {"5400"};
+//  s1->execute(vec);
 
 //client try
-  connectCommand* con = new connectCommand();
-  vector<string> vec1 = {"127.0.0.1","5400"};
-  con->execute(vec1);
+ connectCommand* con = new connectCommand();
+ vector<string> vec1 = {"127.0.0.1","5402"};
+ con->execute(vec1);
 };

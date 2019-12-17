@@ -10,7 +10,7 @@ using namespace std;
 
 class client {
  public:
-  int openClient(string ip, int port);
+  int openClient(string ip, string port);
 };
 
 
