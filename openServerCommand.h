@@ -9,8 +9,11 @@
 #include <vector>
 
 class openServerCommand : public Command {
+ private:
+  string port;
  public:
   int execute(vector<string>) override;
 };
+int openServer(string port);
 
 #endif //PROJECTEX3__OPENSERVERCOMMAND_H_

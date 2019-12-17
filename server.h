@@ -12,6 +12,10 @@ using namespace std;
 
 class server {
  public:
-  int openServer(string port);
+  string port;
+  server(string port1) {
+    this->port = port1;
+  }
+  int openServer();
 };
 #endif //PROJECTEX3__SERVER_H_

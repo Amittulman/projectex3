@@ -14,8 +14,8 @@
 
 using namespace std;
 
-int server::openServer(string port) {
-  int portNum = stoi(port);
+int server::openServer() {
+  int portNum = stoi(this->port);
   //create socket
   int socketfd = socket(AF_INET, SOCK_STREAM, 0);
   if (socketfd == -1) {
