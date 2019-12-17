@@ -15,7 +15,16 @@ int main() {
   string s = "/home/amittulman/CLionProjects/projectex3/fly.txt";
  /* vector<string> vecLexer = Lexer::split(s);
   dataManager* data = dataManager::getInstance();  //create control manager*/
-  openServerCommand* s1 = new openServerCommand();
+
+
+
+ //srever try
+/*  openServerCommand* s1 = new openServerCommand();
   vector<string> vec = {"5400"};
-  s1->execute(vec);
+  s1->execute(vec);*/
+
+//client try
+  connectCommand* con = new connectCommand();
+  vector<string> vec1 = {"127.0.0.1","5400"};
+  con->execute(vec1);
 };

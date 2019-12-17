@@ -26,7 +26,7 @@ int client::openClient(string ip, int port)
   sockaddr_in address; //in means IP4
   address.sin_family = AF_INET;//IP4
   address.sin_addr.s_addr = inet_addr("127.0.0.1");  //the localhost address
-  address.sin_port = htons(port);
+  address.sin_port = htons(5402);
   //we need to convert our number (both port & localhost)
   // to a number that the network understands.
 
@@ -40,8 +40,14 @@ int client::openClient(string ip, int port)
   }
 
   //if here we made a connection
-  char hello[] = "Hi from client";
+  char hello[] = "set controls/flight/rudder 1\r\n";
   int is_sent = send(client_socket , hello , strlen(hello) , 0 );
+  if (is_sent == -1) {
+    std::cout<<"Error sending message"<<std::endl;
+  } else {
+    std::cout<<"Hello message sent to server" <<std::endl;
+  }  char hello2[] = "set controls/flight/rudder -1\r\n";
+  int is_sent2 = send(client_socket , hello2 , strlen(hello) , 0 );
   if (is_sent == -1) {
     std::cout<<"Error sending message"<<std::endl;
   } else {

@@ -11,7 +11,7 @@ using namespace std;
 
 class Command {
  public:
-  virtual int execute(vector<string> stringVect);
+  virtual int execute(vector<string> stringVect) = 0;
   ~Command(){};
 
 };
