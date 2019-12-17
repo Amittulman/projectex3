@@ -3,9 +3,15 @@
 //
 
 #include "openServerCommand.h"
+#include "server.h"
+#include <vector>
+#include "dataManager.h"
+
 
 using namespace std;
 
-void openServerCommand::execute () {
+int openServerCommand::execute (vector<string> vecServer) {
+  server* curServer = new server();
+  curServer->openServer(stoi(vecServer.at(0))); //open server
 
 }

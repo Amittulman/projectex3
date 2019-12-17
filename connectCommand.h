@@ -8,7 +8,8 @@
 #include "Command.h"
 
 class connectCommand : public Command {
-
+ public:
+  int execute(vector<string>) override;
 };
 
 #endif //PROJECTEX3__CONNECTCOMMAND_H_

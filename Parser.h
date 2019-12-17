@@ -5,11 +5,11 @@
 #ifndef PROJECTEX3__PARSER_H_
 #define PROJECTEX3__PARSER_H_
 #include "Command.h"
-#include <map>
+#include <unordered_map>
 
 class Parser {
  private:
-  map<string,Command*> commandsMap;
+  unordered_map<string,Command*> commandsMap;
 
  public:
   Parser() {

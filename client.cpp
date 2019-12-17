@@ -12,7 +12,6 @@
 #include <arpa/inet.h>
 #include <string.h>
 
-#define PORT 8081
 int client::openClient(string ip, int port)
 {
   //create socket
@@ -27,7 +26,7 @@ int client::openClient(string ip, int port)
   sockaddr_in address; //in means IP4
   address.sin_family = AF_INET;//IP4
   address.sin_addr.s_addr = inet_addr("127.0.0.1");  //the localhost address
-  address.sin_port = htons(PORT);
+  address.sin_port = htons(port);
   //we need to convert our number (both port & localhost)
   // to a number that the network understands.
 

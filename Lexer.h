@@ -14,7 +14,8 @@
 using namespace std;
 
 class Lexer {
-  vector<string> split();
+ public:
+  static vector<string> split(string s);
 };
 
 #endif //PROJECTEX3__LEXER_H_

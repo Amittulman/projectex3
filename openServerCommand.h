@@ -6,10 +6,11 @@
 #define PROJECTEX3__OPENSERVERCOMMAND_H_
 
 #include "Command.h"
+#include <vector>
+
 class openServerCommand : public Command {
  public:
   int execute(vector<string>) override;
-  void execute();
 };
 
 #endif //PROJECTEX3__OPENSERVERCOMMAND_H_

@@ -44,8 +44,9 @@ int server::openServer(int port)
   }
 
   // accepting a client
+  socklen_t addrlen = sizeof(sockaddr_in);
   int client_socket = accept(socketfd, (struct sockaddr *)&address,
-                             (socklen_t*)&address);
+                             &addrlen);
 
   if (client_socket == -1) {
     std::cerr<<"Error accepting client"<<std::endl;
@@ -64,5 +65,4 @@ int server::openServer(int port)
   send(client_socket , hello , strlen(hello) , 0 );
   std::cout<<"Hello message sent\n"<<std::endl;
   return 0;
-
 }

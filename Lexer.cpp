@@ -7,15 +7,16 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include "Lexer.h"
 
 using namespace std;
 
-int main(){
+vector<string> Lexer::split(string s){
   vector<string> lexedVector;
 
   string commandsLine;
   ifstream myfile;
-  myfile.open("/home/amittulman/CLionProjects/projectex3/fly.txt");
+  myfile.open(s);
 
   if (!myfile.is_open()) {
     perror("Error open");
@@ -84,11 +85,8 @@ int main(){
     std::cout << *i << endl;
   getchar();
 
-  return 0;
+  return lexedVector;
 }
-
-
-
 
 
 

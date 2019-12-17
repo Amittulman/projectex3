@@ -3,3 +3,9 @@
 //
 
 #include "connectCommand.h"
+
+using namespace std;
+
+int connectCommand::execute (vector<string> vecClient) {
+
+}
