@@ -12,4 +12,6 @@ class connectCommand : public Command {
   int execute(vector<string>) override;
 };
 
+int openClient(string ip, string port);
+
 #endif //PROJECTEX3__CONNECTCOMMAND_H_

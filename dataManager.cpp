@@ -3,11 +3,12 @@
 //
 
 #include "dataManager.h"
-
+#include "openServerCommand.h"
+#include "connectCommand.h"
 
 using namespace std;
 
-void dataManager::initializerSimMap() {
+void dataManager::initializerMaps() {
   this->simMap.insert(std::pair<string,varData*>("instrumentation/airspeed-indicator/indicated-speed-kt",new varData("instrumentation/airspeed-indicator/indicated-speed-kt",0)));
   this->simMap.insert(std::pair<string,varData*>("instrumentation/altimeter/indicated-altitude-ft", new varData("instrumentation/altimeter/indicated-altitude-ft" ,0)));
   this->simMap.insert(std::pair<string,varData*>("instrumentation/altimeter/pressure-alt-ft", new varData("instrumentation/altimeter/pressure-alt-ft" ,0)));
@@ -31,4 +32,15 @@ void dataManager::initializerSimMap() {
   this->simMap.insert(std::pair<string,varData*>("controls/flight/flaps", new varData("controls/flight/flaps" ,0)));
   this->simMap.insert(std::pair<string,varData*>("controls/engines/current-engine/throttle", new varData("controls/engines/current-engine/throttle" ,0)));
   this->simMap.insert(std::pair<string,varData*>("engines/engine/rpm", new varData("engines/engine/rpm" ,0)));
+
+  //initialize map of commands
+  commandsMap.insert(pair<string,Command*>("openDataServer",new openServerCommand()));
+  commandsMap.insert(make_pair("openDataServer",new connectCommand()));
+  commandsMap.insert(make_pair("openDataServer",new defineVarCommand()));
+  commandsMap.insert(make_pair("openDataServer",new whileCommand()));
+  commandsMap.insert(make_pair("openDataServer",new ifCommand()));
+  commandsMap.insert(make_pair("openDataServer",new defineVarCommand()));
+  commandsMap.insert(make_pair("openDataServer",new printCommand()));
+  commandsMap.insert(make_pair("openDataServer",new sleepCommand()));
 }
+dataManager* dataManager::dataInstance = 0;

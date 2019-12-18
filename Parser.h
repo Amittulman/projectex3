@@ -9,12 +9,8 @@
 
 class Parser {
  private:
-  unordered_map<string,Command*> commandsMap;
-
  public:
-  Parser() {
-    this->commandsMap = {};
-  }
+
   void parse();
 };
 

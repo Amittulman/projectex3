@@ -42,6 +42,9 @@ int client::openClient(string ip, string port)
     std::cout<<"Client is now connected to server" <<std::endl;
   }
 
+
+  std::cout<<"client after connect "<<std::endl;
+
   //if here we made a connection
   char hello[] = "set controls/flight/rudder 1\r\n";
   int is_sent = send(client_socket , hello , strlen(hello) , 0 );
@@ -56,6 +59,16 @@ int client::openClient(string ip, string port)
   } else {
     std::cout<<"Hello message sent to server" <<std::endl;
   }
+
+
+
+  std::cout<<"client after reading "<<std::endl;
+  sleep(0.1);
+  std::cout<<"server after reading "<<std::endl;
+  sleep(0.1);
+  std::cout<<"server after reading "<<std::endl;
+  sleep(0.1);
+
 
   char buffer[1024] = {0};
   int valread = read( client_socket , buffer, 1024);

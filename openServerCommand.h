@@ -10,10 +10,12 @@
 
 class openServerCommand : public Command {
  private:
+  int socketfd;
   string port;
  public:
   int execute(vector<string>) override;
 };
 int openServer(string port);
+int serverLogic();
 
 #endif //PROJECTEX3__OPENSERVERCOMMAND_H_

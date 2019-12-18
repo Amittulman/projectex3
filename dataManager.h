@@ -8,29 +8,36 @@
 #include "server.h"
 #include "client.h"
 #include "varData.h"
+#include "Command.h"
 #include <map>
 #include <unordered_map>
 using namespace std;
 
 class dataManager {
  private:
-  static dataManager* dataInstance;
   dataManager() {
    initializerSimMap();
  }
  public:
+  static dataManager* dataInstance;
   unordered_map<string,varData*> progMap;
   unordered_map<string,varData*> simMap;
-  server* managerServer;
-  client* managerClient;
-  void initializerSimMap();
+  unordered_map<string,Command*> commandsMap;
+  int serverSocket;
+  int clientSocket;
+
+  void initializerMaps();
 
   static dataManager* getInstance() {
-    if (dataInstance == NULL) {
+    if (!dataInstance) {
       dataInstance = new dataManager();
     }
     return dataInstance;
   }
+
+/*  static void initialize() {
+    dataInstance = NULL;
+  }*/
 
 };
 

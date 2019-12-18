@@ -57,12 +57,19 @@ int server::openServer() {
     return -4;
   }
 
+  std::cout<<"server after accept "<<std::endl;
   //close(socketfd); //closing the listening socket
+  sleep(1);
 
   //reading from client
   char buffer[1024] = {0};
   int valread = read( client_socket , buffer, 1024);
   std::cout<<buffer<<std::endl;
+  std::cout<<"server after reading "<<std::endl;
+  sleep(1);
+  std::cout<<"server after reading "<<std::endl;
+  sleep(1);
+  std::cout<<"server after reading "<<std::endl;
 
   //writing back to client
   char *hello = "Hello, I can hear you! \n";
