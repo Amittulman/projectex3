@@ -14,9 +14,9 @@
 
 int main() {
   string s = "/home/amittulman/CLionProjects/projectex3/fly.txt";
- /* vector<string> vecLexer = Lexer::split(s);
-  dataManager* data = dataManager::getInstance();  //create control manager*/
-
+  vector<string> vecLexer = Lexer::split(s);
+  Parser* par = new Parser(vecLexer);
+  par->parse();
 
  //srever try
  openServerCommand* s1 = new openServerCommand();
