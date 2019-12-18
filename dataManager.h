@@ -16,7 +16,7 @@ using namespace std;
 class dataManager {
  private:
   dataManager() {
-   initializerSimMap();
+    initializerMaps();
  }
  public:
   static dataManager* dataInstance;

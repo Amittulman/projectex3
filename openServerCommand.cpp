@@ -25,7 +25,7 @@ int openServerCommand::execute (vector<string> vecServer) {
   t1.join();
   thread t2(serverLogic);
 
-  t2.join();
+  //t2.join();
   return 0;
 
 }
