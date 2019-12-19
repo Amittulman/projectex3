@@ -10,8 +10,8 @@
 
 class openServerCommand : public Command {
  private:
-  int socketfd;
  public:
+  std::string portServer;
   int execute(vector<string>) override;
 };
 int openServer(string port);

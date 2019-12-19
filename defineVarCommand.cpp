@@ -29,7 +29,7 @@ int defineVarCommand::execute(vector<string> vecVar) {
     data->progMap.insert(pair<string,varData*>(vecVar.at(1),curVar));
     data->simMap[vecVar.at(4)] = curVar;
     return 5;
-  } else if (vecVar.at(0) == "var"){
+  } else if (vecVar.at(0) == "var"){ //initialize new var for map
     if (data->progMap[vecVar.at(3)] != NULL) {
       varData *curVar1 = new varData(NULL, data->progMap[vecVar.at(3)]->val);
       data->progMap.insert(pair<string, varData *>(vecVar.at(1), curVar1));
@@ -37,7 +37,8 @@ int defineVarCommand::execute(vector<string> vecVar) {
       varData* curVar3 = new varData(NULL, stoi(vecVar.at(4))); // take care of expression
       data->progMap.insert(pair<string, varData *>(vecVar.at(1), curVar3));
     }
-  } else {
-
+  } else { // rudder = 3
+    data->progMap[vecVar.at(0)]->val = stoi(vecVar.at(2)); //take care of expression
+    // ########### mutex?
   }
 }

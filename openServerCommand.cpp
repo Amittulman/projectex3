@@ -15,35 +15,32 @@
 #include <netinet/in.h>
 #include <string.h>
 #include <string>
+#include <mutex>
 
 class openClient;
 using namespace std;
 
 int openServerCommand::execute (vector<string> vecServer) {
   dataManager* data = dataManager::getInstance();
-  data->portServer = vecServer.at(0);
+  this->portServer = vecServer.at(0);
   //int responseCode = openServer();
-/*  dataManager* data = dataManager::getInstance();
-  thread t1(openServer, port);
+  thread t1(openServer, this->portServer);
   t1.join();
   thread t2(serverLogic);
-  thread t3(openClient,"127.0.0.1", "5402");
-  while (true){
-    int i =0;
-  }*/
-  //t2.join();
+  t2.detach();
   return 2;
 
 }
 
 int openServer(string port) {
+  dataManager* data = dataManager::getInstance();
+  data->mtxFirstData.lock();
   int portNum = stoi(port);
   //create socket
-  dataManager *data = dataManager::getInstance();
   data->serverSocket = socket(AF_INET, SOCK_STREAM, 0);
   if (data->serverSocket == -1) {
     //error
-    std::cerr << "Could not create a socket" << std::endl;
+    std::cerr << "SERVER :Could not create a socket" << std::endl;
     return -1;
   }
 
@@ -58,16 +55,16 @@ int openServer(string port) {
 
   //the actual bind command
   if (bind(data->serverSocket, (struct sockaddr *) &address, sizeof(address)) == -1) {
-    std::cerr << "Could not bind the socket to an IP" << std::endl;
+    std::cerr << "SERVER :Could not bind the socket to an IP" << std::endl;
     return -2;
   }
 
   //making socket listen to the port
   if (listen(data->serverSocket, 5) == -1) { //can also set to SOMAXCON (max connections)
-    std::cerr << "Error during listening command" << std::endl;
+    std::cerr << "SERVER :Error during listening command" << std::endl;
     return -3;
   } else {
-    std::cout << "Server is now listening ..." << std::endl;
+    std::cout << "SERVER :Server is now listening ..." << std::endl;
   }
 
   // accepting a client
@@ -75,37 +72,38 @@ int openServer(string port) {
   data->clientSocket = accept(data->serverSocket, (struct sockaddr *) &address,
                              &addrlen);
 
-  std::cout << "server after accept " << std::endl;
+  std::cout << "SERVER : server after accept " << std::endl;
 
   if (data->clientSocket == -1) {
-    std::cerr << "Error accepting client" << std::endl;
+    std::cerr << "SERVER : Error accepting client" << std::endl;
     return -4;
   }
 }
 
 int serverLogic(){
   dataManager *data = dataManager::getInstance();
-
   //close(socketfd); //closing the listening socket
   while(1) {
     //reading from client
     char buffer[1024] = {0};
     int valread = read(data->clientSocket, buffer, 1024);
     std::cout << buffer << std::endl;
-
-    std::cout << "server after reading " << std::endl;
+    if (data->flagFirstData == 0) {
+      data->mtxFirstData.unlock();
+    }
+    data->flagFirstData = 1;  // first time information recieved
+    std::cout << "SERVER :server after reading " << std::endl;
     sleep(1);
-    std::cout << "server after reading " << std::endl;
+    std::cout << "SERVER :server after reading " << std::endl;
     sleep(1);
-    std::cout << "server after reading " << std::endl;
+    std::cout << "SERVER :server after reading " << std::endl;
 
 
 
     //writing back to client
-    char *hello = "Hello, I can hear you! \n";
+    char *hello = "SERVER :Hello, I can hear you! \n";
     send(data->clientSocket, hello, strlen(hello), 0);
-    std::cout << "Hello message sent\n" << std::endl;
+    std::cout << "SERVER :Hello message sent\n" << std::endl;
     //return 0;
   }
-
 }

@@ -30,13 +30,12 @@ void Parser::parse() {
     }
 
   }
-  thread t1(openServer, data->portServer);
+/*  thread t1(openServer, data->portServer);
   t1.join();
-  thread t2(serverLogic);
-  thread t3(openClient, data->ipClient, data->portClient);
+  thread t2(serverLogic);*/
+  //thread t3(openClient, data->ipClient, data->portClient);
   while (true) {
     int j = 0;
-
   }
   while (index < vecSize) {
     Command* c = data->commandsMap.at(lex.at(index));

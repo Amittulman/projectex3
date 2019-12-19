@@ -12,6 +12,7 @@
 #include <map>
 #include <unordered_map>
 #include <thread>
+#include <mutex>
 using namespace std;
 
 class dataManager {
@@ -26,12 +27,9 @@ class dataManager {
   unordered_map<string,Command*> commandsMap;
   int serverSocket;
   int clientSocket;
-  thread serverThread;
-  thread clientThread;
-  string portServer;
-  string portClient;
-  string ipClient;
-
+  int flagFirstData = 0;
+  mutex mtxVar;
+  mutex mtxFirstData;
 
   void initializerMaps();
 

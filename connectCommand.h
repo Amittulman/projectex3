@@ -10,6 +10,8 @@
 class connectCommand : public Command {
  public:
   int execute(vector<string>) override;
+  std::string portClient, ipClient;
+
 };
 
 int openClient(string ip, string port);
