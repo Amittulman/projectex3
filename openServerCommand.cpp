@@ -26,8 +26,8 @@ int openServerCommand::execute (vector<string> vecServer) {
   //int responseCode = openServer();
   thread t1(openServer, this->portServer);
   t1.join();
-  thread t2(serverLogic);
-  t2.detach();
+  data->serverThread = thread (serverLogic);
+  data->serverThread.detach();
   return 2;
 
 }

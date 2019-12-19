@@ -30,7 +30,8 @@ class dataManager {
   int flagFirstData = 0;
   mutex mtxVar;
   mutex mtxFirstData;
-
+  thread serverThread;
+  thread clientThread;
   void initializerMaps();
 
   static dataManager* getInstance() {

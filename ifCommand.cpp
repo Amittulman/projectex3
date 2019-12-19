@@ -2,9 +2,9 @@
 // Created by amittulman on 19/12/2019.
 //
 
-#include "whileCommand.h"
+#include "ifCommand.h"
 #include "Parser.h"
-int whileCommand::execute(vector<string> vec) {
+int ifCommand::execute(vector<string> vec) {
   int i = 0;
   vector<string> newVector;
   while (vec.at(i) != "}") {
@@ -14,7 +14,7 @@ int whileCommand::execute(vector<string> vec) {
     i++;
   }
   // ########### check type of condition
-  while (bool con=true) { //send to function to check the condition
+  if (bool con=true) { //send to function to check the condition
     Parser* par = new Parser(newVector);
   }
   return i + 1;
