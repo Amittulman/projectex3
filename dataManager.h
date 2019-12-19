@@ -23,8 +23,8 @@ class dataManager {
  public:
   static dataManager* dataInstance;
   unordered_map<string,varData*> progMap;
-  unordered_map<string,varData*> simMap;
   unordered_map<string,Command*> commandsMap;
+  map<string,varData*> simMap;
   int serverSocket;
   int clientSocket;
   int flagFirstData = 0;
@@ -40,10 +40,6 @@ class dataManager {
     }
     return dataInstance;
   }
-
-/*  static void initialize() {
-    dataInstance = NULL;
-  }*/
 
 };
 
