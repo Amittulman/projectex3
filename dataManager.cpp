@@ -35,11 +35,11 @@ void dataManager::initializerMaps() {
 
   //initialize map of commands
   commandsMap.insert(pair<string,Command*>("openDataServer",new openServerCommand()));
-  commandsMap.insert(pair<string,Command*>("connectCommand",new connectCommand()));
-  commandsMap.insert(pair<string,Command*>("var",new defineVarCommand()));
+  commandsMap.insert(pair<string,Command*>("connectControlClient",new connectCommand()));
+/*  commandsMap.insert(pair<string,Command*>("var",new defineVarCommand()));
   commandsMap.insert(pair<string,Command*>("while",new whileCommand()));
   commandsMap.insert(pair<string,Command*>("if",new ifCommand()));
   commandsMap.insert(pair<string,Command*>("print",new printCommand()));
-  commandsMap.insert(pair<string,Command*>("sleep",new sleepCommand()));
+  commandsMap.insert(pair<string,Command*>("sleep",new sleepCommand()));*/
 }
 dataManager* dataManager::dataInstance = 0;

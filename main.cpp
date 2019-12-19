@@ -15,18 +15,19 @@
 int main() {
   string s = "/home/amittulman/CLionProjects/projectex3/fly.txt";
   vector<string> vecLexer = Lexer::split(s);
-/*  Parser* par = new Parser(vecLexer);
-  par->parse();*/
+  Parser* par = new Parser(vecLexer);
+  par->parse();
+   //srever try
+/*   openServerCommand *s1 = new openServerCommand();
+   vector<string> vec = {"5400"};
+   s1->execute(vec);*/
+   //thread st(openServerCommand::execute(vec));
 
- //srever try
- openServerCommand* s1 = new openServerCommand();
- vector<string> vec = {"5400"};
- s1->execute(vec);
- //thread st(openServerCommand::execute(vec));
-
- //client try
- connectCommand* con = new connectCommand();
- vector<string> vec1 = {"127.0.0.1","5402"};
- con->execute(vec1);
-
+   //client try
+/*   connectCommand *con = new connectCommand();
+   vector<string> vec1 = {"127.0.0.1", "5402"};
+   con->execute(vec1);*/
+  while (true){
+    int i =0;
+   }
 };

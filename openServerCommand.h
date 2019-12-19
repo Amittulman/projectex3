@@ -11,7 +11,6 @@
 class openServerCommand : public Command {
  private:
   int socketfd;
-  string port;
  public:
   int execute(vector<string>) override;
 };

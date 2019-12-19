@@ -3,6 +3,7 @@
 //
 
 #include "openServerCommand.h"
+#include "connectCommand.h"
 #include "server.h"
 #include <vector>
 #include <thread>
@@ -15,18 +16,23 @@
 #include <string.h>
 #include <string>
 
-
+class openClient;
 using namespace std;
 
 int openServerCommand::execute (vector<string> vecServer) {
-  this->port = vecServer.at(0);
+  dataManager* data = dataManager::getInstance();
+  data->portServer = vecServer.at(0);
   //int responseCode = openServer();
+/*  dataManager* data = dataManager::getInstance();
   thread t1(openServer, port);
   t1.join();
   thread t2(serverLogic);
-
+  thread t3(openClient,"127.0.0.1", "5402");
+  while (true){
+    int i =0;
+  }*/
   //t2.join();
-  return 0;
+  return 2;
 
 }
 

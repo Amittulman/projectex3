@@ -83,13 +83,9 @@ vector<string> Lexer::split(string s){
   }
   for (auto i = lexedVector.begin(); i != lexedVector.end(); ++i)
     std::cout << *i << endl;
-  getchar();
 
   return lexedVector;
 }
-
-
-
 
 
 
