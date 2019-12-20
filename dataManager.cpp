@@ -58,7 +58,7 @@ initializerMaps() {
   commandsMap.insert(pair<string,Command*>("var",new defineVarCommand()));
   commandsMap.insert(pair<string,Command*>("while",new whileCommand()));
   commandsMap.insert(pair<string,Command*>("if",new ifCommand()));
-  commandsMap.insert(pair<string,Command*>("print",new printCommand()));
-  commandsMap.insert(pair<string,Command*>("sleep",new sleepCommand()));
+  commandsMap.insert(pair<string,Command*>("Print",new printCommand()));
+  commandsMap.insert(pair<string,Command*>("Sleep",new sleepCommand()));
 }
 dataManager* dataManager::dataInstance = 0;

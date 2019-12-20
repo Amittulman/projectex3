@@ -15,6 +15,5 @@ class connectCommand : public Command {
 };
 
 int openClient(string ip, string port);
-string updateIP(string ip);
 
 #endif //PROJECTEX3__CONNECTCOMMAND_H_

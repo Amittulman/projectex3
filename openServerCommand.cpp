@@ -22,7 +22,7 @@ using namespace std;
 
 int openServerCommand::execute (vector<string> vecServer) {
   dataManager* data = dataManager::getInstance();
-  this->portServer = vecServer.at(0);
+  this->portServer = vecServer.at(1);
   //int responseCode = openServer();
   thread t1(openServer, this->portServer);
   t1.join();

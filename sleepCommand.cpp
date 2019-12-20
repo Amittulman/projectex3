@@ -11,7 +11,6 @@ int sleepCommand::execute(vector<string> vec) {
   } else { //sleep(20+rudder)
 
 
-
   }
 
   return 2;

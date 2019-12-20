@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include <thread>
 #include <mutex>
+#include <queue>
 using namespace std;
 
 class dataManager {
@@ -28,10 +29,11 @@ class dataManager {
   int serverSocket;
   int clientSocket;
   int flagFirstData = 0;
-  mutex mtxVar;
+  mutex mtxVal;
   mutex mtxFirstData;
   thread serverThread;
   thread clientThread;
+  queue<string> commandQueue;
   void initializerMaps();
 
   static dataManager* getInstance() {
@@ -40,6 +42,51 @@ class dataManager {
     }
     return dataInstance;
   }
+
+  double getValue(string s, int sim) {
+    mtxVal.lock();
+    double val;
+    if (sim == 1) { // search value by sim
+      val = simMap[s]->val;
+    } else { // search by var
+      val = progMap[s]->val;
+    }
+    mtxVal.unlock();
+    return val;
+  }
+
+  string getSim(string s) {
+    string sim = progMap[s]->sim;
+    return sim;
+  }
+
+  void setVal(string key, double val, int sim) {
+    mtxVal.lock();
+    if (sim == 1) {
+      simMap[key]->val = val;
+    } else {
+      progMap[key]->val = val;
+    }
+    mtxVal.unlock();
+    return;
+  }
+
+  static string cleanString(string ip)
+    {
+      int len = ip.length();
+      string newIP = "";
+      for (int i = 0; i < len; i++) {
+        if (ip.at(i) == '\"')
+          continue;
+        else if (ip.at(i) == '\\')
+          continue;
+        newIP += ip.at(i);
+      }
+      if(newIP.at(0) == '/'){
+        newIP = newIP.substr(1, newIP.length()-1);
+      }
+      return newIP;
+    }
 
 };
 

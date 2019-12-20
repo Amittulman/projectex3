@@ -12,26 +12,27 @@
 #include <string.h>
 #include <thread>
 #include "dataManager.h"
+#import <sstream>
 
 using namespace std;
 
 int connectCommand::execute (vector<string> vecClient) {
   dataManager* data = dataManager::getInstance();
-  this->ipClient = vecClient.at(0);
-  this->portClient = vecClient.at(1);
+  this->ipClient = vecClient.at(1);
+  this->portClient = vecClient.at(2);
   data->clientThread = thread (openClient, this->ipClient, this->portClient);
   data->clientThread.detach();
   //openClient(vecClient.at(0),vecClient.at(1));
 /*  thread t2(openClient, vecClient.at(0),vecClient.at(1));
   t2.join();*/
-  return 2;
+  return 3;
 }
 
 
 int openClient(string ip, string port) {
   dataManager *data = dataManager::getInstance();
 
-  const char *cstr = updateIP(ip).c_str();
+  const char *cstr = data->cleanString(ip).c_str();
 
   int portNum = stoi(port);
   //create socket
@@ -69,23 +70,43 @@ int i;
 
   while (true) {
     if (data->mtxFirstData.try_lock()) {
-      char hello[] = "set controls/flight/rudder 1\r\n";
-      int is_sent = send(client_socket, hello, strlen(hello), 0);
+
+      while (!data->commandQueue.empty()) { //there are commands inside
+        string popS = data->commandQueue.front();
+        std::cout << "POPPED: " << popS << std::endl;
+
+        data->commandQueue.pop();
+
+        char massage[popS.length()];
+        int i;
+        for (i = 0; i < sizeof(popS); i++) {
+          massage[i] = popS[i];
+        }
+        int is_sent = send(client_socket, massage, strlen(massage), 0);
+        if (is_sent == -1) {
+          std::cout << "CLIENT: Error sending message" << std::endl;
+        } else {
+          std::cout << "CLIENT: " << massage << std::endl;
+        }
+
+      }
+      //char hello[] = "set controls/flight/rudder 1\r\n";
+/*      int is_sent = send(client_socket, massage, strlen(hello), 0);
       if (is_sent == -1) {
         std::cout << "CLIENT: Error sending message" << std::endl;
       } else {
         std::cout << "CLIENT: RUDDER 1 SENT" << std::endl;
-      }
+      }*/
       sleep(1.5);
-      char hello2[] = "set controls/flight/rudder -1\r\n";
+      //char hello2[] = "set controls/flight/rudder -1\r\n";
 
-      int is_sent2 = send(client_socket, hello2, strlen(hello2), 0);
+/*      int is_sent2 = send(client_socket, hello2, strlen(hello2), 0);
       if (is_sent2 == -1) {
         std::cout << "CLIENT: Error sending message" << std::endl;
       } else {
         std::cout << "CLIENT: RUDDER -1 SENT" << std::endl;
       }
-      sleep(1.5);
+      sleep(1.5);*/
       data->mtxFirstData.unlock();
     }
   }
@@ -97,15 +118,3 @@ int i;
   close(client_socket);
 }
 
-  string updateIP(string ip){
-    int len = ip.length();
-    string newIP = "";
-    for (int i = 0; i<len; i++){
-      if (ip.at(i)== '\"')
-        continue;
-      else if(ip.at(i) == '\\')
-        continue;
-      newIP += ip.at(i);
-    }
-  return newIP;
-}

@@ -13,8 +13,8 @@ int printCommand::execute(vector<string> vec) {
     return 2;
   } else { //print expression
     dataManager *data = dataManager::getInstance();
-    if (data->progMap.at(vec.at(1)) != NULL) { // print(rudder)
-      double value = data->progMap.at(vec.at(1))->val;
+    if (data->progMap.count(vec.at(1)) != 0) { // print(rudder)
+      double value = data->getValue(vec.at(1),0);
       std::cout << value << std::endl;
       return 2;
     } else { //print(rudder+(5-2))

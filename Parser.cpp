@@ -15,18 +15,21 @@ void Parser::parse() {
   int vecSize = lex.size();
   int index = 0;
   while (index < vecSize) {
-    Command* c = data->commandsMap.at(lex.at(index));
+    Command* c = data->commandsMap[lex.at(index)];
     if (c != NULL) {
       vector<string> newVec;
-      for (int i = index + 1; i < vecSize; i++) {
+      for (int i = index; i < vecSize; i++) {
         newVec.push_back(lex[i]);
       }
-      if (lex.at(index) == "connectControlClient") {
-        index += c->execute(newVec);
-
-        break;
+      index += c->execute(newVec);
+    } else { //not in tha commandMap : warp = 5
+      Command* c = data->commandsMap["var"];
+      vector<string> newVec;
+      for (int i = index; i < vecSize; i++) {
+        newVec.push_back(lex[i]);
       }
       index += c->execute(newVec);
+
     }
 
   }
