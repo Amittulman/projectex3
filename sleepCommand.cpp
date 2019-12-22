@@ -4,10 +4,14 @@
 
 #include "sleepCommand.h"
 #include <unistd.h>
+#include <thread>
+#include <chrono>
 
+using namespace std::chrono_literals;
 int sleepCommand::execute(vector<string> vec) {
   if (isParam(vec.at(1))) { // sleep(400)
-    sleep(stoi(vec.at(1)));
+   std::chrono::milliseconds duration(stoi(vec.at(1)));
+    std::this_thread::sleep_for(duration);
   } else { //sleep(20+rudder)
 
 

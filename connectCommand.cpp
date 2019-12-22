@@ -79,7 +79,7 @@ int i;
 
         char massage[popS.length()];
         int i;
-        for (i = 0; i < sizeof(popS); i++) {
+        for (i = 0; i < popS.length(); i++) {
           massage[i] = popS[i];
         }
         int is_sent = send(client_socket, massage, strlen(massage), 0);

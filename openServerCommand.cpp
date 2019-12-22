@@ -87,7 +87,7 @@ int serverLogic(){
     //reading from client
     char buffer[1024] = {0};
     int valread = read(data->clientSocket, buffer, 1024);
-    std::cout << buffer << std::endl;
+    std::cout <<"Data from sim: " << buffer << std::endl;
     if (data->flagFirstData == 0) {
       data->mtxFirstData.unlock();
     }
