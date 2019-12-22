@@ -26,6 +26,7 @@ class dataManager {
   unordered_map<string,varData*> progMap;
   unordered_map<string,Command*> commandsMap;
   map<string,varData*> simMap;
+  string simPath[36];
   int serverSocket;
   int clientSocket;
   int flagFirstData = 0;

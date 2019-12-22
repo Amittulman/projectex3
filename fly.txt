@@ -2,8 +2,8 @@ openDataServer(5400)
 connectControlClient("127.0.0.1",5402)
 var warp -> sim("/sim/time/warp")
 var magnetos -> sim("/controls/switches/magnetos")
-var throttle -> sim("/controls/engines/current-engine/throttle")
 var mixture -> sim("/controls/engines/current-engine/mixture")
+var throttle -> sim("/controls/engines/current-engine/throttle")
 var masterbat -> sim("/controls/switches/master-bat")
 var masterlat -> sim("/controls/switches/master-alt")
 var masteravionics -> sim("/controls/switches/master-avionics")
@@ -14,6 +14,7 @@ var autostart -> sim("/engines/active-engine/auto-start")
 var breaks -> sim("/controls/flight/speedbrake")
 var heading <- sim("/instrumentation/heading-indicator/offset-deg")
 var airspeed <- sim("/instrumentation/airspeed-indicator/indicated-speed-kt")
+var groundspeed <- sim("/instrumentation/gps/indicated-ground-speed-kt")
 var roll <- sim("/instrumentation/attitude-indicator/indicated-roll-deg")
 var pitch <- sim("/instrumentation/attitude-indicator/internal-pitch-deg")
 var rudder -> sim("/controls/flight/rudder")
@@ -22,13 +23,13 @@ var elevator -> sim("/controls/flight/elevator")
 var alt <- sim("/instrumentation/altimeter/indicated-altitude-ft")
 var rpm <- sim("/engines/engine/rpm")
 Print("waiting 2 minutes for gui")
-Sleep(150)
+Sleep(90000)
 Print("let's start")
 warp = 32000
 Sleep(30)
 magnetos = 3
-throttle = 0.55
 mixture = 0.949
+throttle = 0.55
 masterbat = 1
 masterlat = 1
 masteravionics = 1

@@ -83,27 +83,53 @@ int openServer(string port) {
 int serverLogic(){
   dataManager *data = dataManager::getInstance();
   //close(socketfd); //closing the listening socket
+  char buffer[1024] = {0};
+
   while(1) {
     //reading from client
-    char buffer[1024] = {0};
     int valread = read(data->clientSocket, buffer, 1024);
-    std::cout <<"Data from sim: " << buffer << std::endl;
+
+    //std::cout <<"Data from sim: " << buffer << std::endl;
+
+    //string val = to_string(data->simMap["instrumentation/gps/indicated-ground-speed-kt"]->val); // --------------------------------------------------- Debug -----------------
+    //std::cout <<"speed: " << val << std::endl; // --------------------------------------------------- Debug -----------------
+
     if (data->flagFirstData == 0) {
       data->mtxFirstData.unlock();
     }
     data->flagFirstData = 1;  // first time information recieved
-    std::cout << "SERVER :server after reading " << std::endl;
+    splitDetails(buffer);
+
+
+
+
+    //std::cout << "SERVER :server after reading " << std::endl;
+    //sleep(1);
+/*    std::cout << "SERVER :server after reading " << std::endl;
     sleep(1);
-    std::cout << "SERVER :server after reading " << std::endl;
-    sleep(1);
-    std::cout << "SERVER :server after reading " << std::endl;
+    std::cout << "SERVER :server after reading " << std::endl;*/
 
 
 
     //writing back to client
     char *hello = "SERVER :Hello, I can hear you! \n";
     send(data->clientSocket, hello, strlen(hello), 0);
-    std::cout << "SERVER :Hello message sent\n" << std::endl;
+  // std::cout << "SERVER :Hello message sent\n" << std::endl;
     //return 0;
   }
+}
+
+void splitDetails(string s) {
+  dataManager *data = dataManager::getInstance();
+  size_t prevPos = 0, position, position2;
+  int i = 0;
+for (i = 0; i < 36; i++){
+  position = s.find(',');
+    string currentValue = s.substr(prevPos, position);
+    s = s.substr(position+1, s.length()-position-1 );
+    int bindDirection = data->simMap[data->simPath[i]]->direction;
+    if(bindDirection) { //The direction is from sim to program - update value
+      data->setVal(data->simPath[i], stof(currentValue), 1);
+    }
+}
 }

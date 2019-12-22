@@ -76,12 +76,19 @@ int i;
         std::cout << "POPPED: " << popS << std::endl;
 
         data->commandQueue.pop();
+        int messageLen = popS.length();
+        int messageSize = popS.size();
 
-        char massage[popS.length()];
+/*        char massage[messageSize];
         int i;
-        for (i = 0; i < popS.length(); i++) {
+        for (i = 0; i < messageSize; i++) {
           massage[i] = popS[i];
-        }
+        }*/
+        string temp = popS;
+        char massage[1024];
+        strcpy(massage, temp.c_str());
+        int messageStrLen = strlen(massage);
+
         int is_sent = send(client_socket, massage, strlen(massage), 0);
         if (is_sent == -1) {
           std::cout << "CLIENT: Error sending message" << std::endl;
