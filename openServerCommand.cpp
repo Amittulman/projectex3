@@ -16,6 +16,7 @@
 #include <string.h>
 #include <string>
 #include <mutex>
+#include <cmath>
 #include "Expression.h"
 #include "ex1.h"
 
@@ -41,8 +42,8 @@ int openServer(string port) {
   string varList = data->createSetVarString();
   i1->setVariables(varList);
   Expression* portExp = i1->interpret(port);
-  int calculatrePort = portExp->calculate();
-  int portNum = calculatrePort;
+  double calculatrePort = portExp->calculate();
+  int portNum = (int)round(calculatrePort);
   delete(i1);
   //create socket
   data->serverSocket = socket(AF_INET, SOCK_STREAM, 0);

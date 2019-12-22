@@ -5,6 +5,7 @@
 #include <iostream>
 #include "printCommand.h"
 #include "dataManager.h"
+#include "ex1.h"
 int printCommand::execute(vector<string> vec) {
   if (vec.at(1)[0] == '\"') { //print string
     int size = vec.at(1).size();
@@ -13,14 +14,17 @@ int printCommand::execute(vector<string> vec) {
     return 2;
   } else { //print expression
     dataManager *data = dataManager::getInstance();
-    if (data->progMap.count(vec.at(1)) != 0) { // print(rudder)
-      double value = data->getValue(vec.at(1),0);
-      std::cout << value << std::endl;
-      return 2;
-    } else { //print(rudder+(5-2))
 
+    Interpreter* i1 = new Interpreter();
+    string varList = data->createSetVarString();
+    i1->setVariables(varList);
+    Expression* printString = i1->interpret(vec.at(1));
+    double intString = printString->calculate();
+    delete(i1);
 
-      return 2;
+    std::cout << to_string(intString) << std::endl;
+    return 2;
+
     }
   }
-}
+

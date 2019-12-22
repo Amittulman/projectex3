@@ -26,6 +26,7 @@ Print("waiting 2 minutes for gui")
 Sleep(90000)
 Print("let's start")
 warp = 32000
+Print(warp+10)
 Sleep(30)
 magnetos = 3
 mixture = 0.949

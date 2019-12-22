@@ -95,6 +95,9 @@ class dataManager {
       curSet += it.first + "=" + to_string(it.second->val) + ";";
     }
     curSet = curSet.substr(0, curSet.length() - 1);
+    if (!curSet.compare("")){
+      curSet = "$$$";
+    }
     return curSet;
     }
 

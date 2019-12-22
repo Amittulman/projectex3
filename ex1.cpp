@@ -49,7 +49,8 @@ Variable& Variable::operator++(int) {
 }
 
 double Value::calculate() {
-  return this->val;
+  double valiue = this->val;
+  return valiue;
 }
 
 double UPlus::calculate() {
@@ -179,6 +180,13 @@ void Interpreter::setVariables(string str) {
 }
 
 Expression* Interpreter::interpret(string str) {
+string origStr = str;
+  char* end = 0;
+  double val = strtod(origStr.c_str(), &end);
+  if (end != origStr.c_str() && *end == '\0' && val != HUGE_VAL){
+    return new Value(stod(origStr));
+  }
+
   for (unsigned long j = 0; j < str.size(); j++) {
     if (j == 0) {
       continue;
