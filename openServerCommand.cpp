@@ -16,6 +16,8 @@
 #include <string.h>
 #include <string>
 #include <mutex>
+#include "Expression.h"
+#include "ex1.h"
 
 class openClient;
 using namespace std;
@@ -35,7 +37,13 @@ int openServerCommand::execute (vector<string> vecServer) {
 int openServer(string port) {
   dataManager* data = dataManager::getInstance();
   data->mtxFirstData.lock();
-  int portNum = stoi(port);
+  Interpreter* i1 = new Interpreter();
+  string varList = data->createSetVarString();
+  i1->setVariables(varList);
+  Expression* portExp = i1->interpret(port);
+  int calculatrePort = portExp->calculate();
+  int portNum = calculatrePort;
+  delete(i1);
   //create socket
   data->serverSocket = socket(AF_INET, SOCK_STREAM, 0);
   if (data->serverSocket == -1) {

@@ -12,6 +12,7 @@
 #include <string.h>
 #include <thread>
 #include "dataManager.h"
+#include "ex1.h"
 #import <sstream>
 
 using namespace std;
@@ -20,7 +21,16 @@ int connectCommand::execute (vector<string> vecClient) {
   dataManager* data = dataManager::getInstance();
   this->ipClient = vecClient.at(1);
   this->portClient = vecClient.at(2);
-  data->clientThread = thread (openClient, this->ipClient, this->portClient);
+
+  Interpreter* i1 = new Interpreter();
+  string varList = data->createSetVarString();
+  i1->setVariables(varList);
+  Expression* portExp = i1->interpret(portClient);
+  int calculatrePort = portExp->calculate();
+  int portNum = calculatrePort;
+  delete(i1);
+
+  data->clientThread = thread (openClient, this->ipClient, to_string(portNum));
   data->clientThread.detach();
   //openClient(vecClient.at(0),vecClient.at(1));
 /*  thread t2(openClient, vecClient.at(0),vecClient.at(1));

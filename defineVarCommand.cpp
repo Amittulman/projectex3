@@ -19,6 +19,8 @@
 #include <string.h>
 #include <thread>
 #include <vector>
+#include "Expression.h"
+#include "ex1.h"
 
 using namespace std;
 
@@ -36,12 +38,14 @@ int defineVarCommand::execute(vector<string> vecVar) {
       data->progMap.insert(pair<string, varData *>(vecVar.at(1), curVar));
       return 5;
     }
-    if (data->progMap[vecVar.at(3)] != NULL) {
+    if (data->progMap.count(vecVar.at(3))) {
       varData *curVar1 = new varData(NULL, data->getValue(vecVar.at(3), 0),0);
       data->progMap.insert(pair<string, varData *>(vecVar.at(1), curVar1));
     } else { // value is not in the map
-      varData* curVar3 = new varData(NULL, stod(vecVar.at(4)),0); // take care of expression
+      float value = stof(vecVar.at(3));
+      varData* curVar3 = new varData("", value,0); // take care of expression
       data->progMap.insert(pair<string, varData *>(vecVar.at(1), curVar3));
+      return 4;
     }
   } else if (vecVar.at(0) != "var"){     // rudder = 3
     //take care of expression

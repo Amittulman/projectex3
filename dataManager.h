@@ -89,6 +89,15 @@ class dataManager {
       return newIP;
     }
 
+  string createSetVarString() {
+    string curSet="";
+    for (auto& it: this->progMap) {
+      curSet += it.first + "=" + to_string(it.second->val) + ";";
+    }
+    curSet = curSet.substr(0, curSet.length() - 1);
+    return curSet;
+    }
+
 };
 
 #endif //PROJECTEX3__DATAMANAGER_H_
