@@ -37,10 +37,10 @@ void Parser::parse() {
   t1.join();
   thread t2(serverLogic);*/
   //thread t3(openClient, data->ipClient, data->portClient);
-  while (true) {
+/*  while (true) {
     int j = 0;
-  }
-  while (index < vecSize) {
+  }*/
+  /*while (index < vecSize) {
     Command* c = data->commandsMap.at(lex.at(index));
     if (c != NULL) {
       vector<string> newVec;
@@ -50,9 +50,9 @@ void Parser::parse() {
       index  += c->execute(newVec);
 
     }
-  }
-  while (true) {
+  }*/
+/*  while (true) {
     int j = 0;
 
-  }
+  }*/
 }

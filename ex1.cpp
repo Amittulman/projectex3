@@ -121,7 +121,7 @@ void Interpreter::setVariables(string str) {
         }
       }
       for(char c3 : var){
-        if (((!isdigit(c3)) && (c3 != '.')) ||(flag1 == 4) ){
+        if ((((!isdigit(c3)) && (c3 != '-')) && (c3 != '.')) ||(flag1 == 4) ){
           throw ("wrong input! value need only numbers");
         }
       }

@@ -12,8 +12,11 @@ class Parser {
   vector<string> lexVector;
  public:
   Parser(vector<string> vecLexer) {
-   this->lexVector = vecLexer;
- }
+    this->lexVector = vecLexer;
+  }
+   ~Parser() {
+    delete (this);
+  }
   void parse();
 };
 

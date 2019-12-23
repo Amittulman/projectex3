@@ -38,18 +38,32 @@ int defineVarCommand::execute(vector<string> vecVar) {
       data->progMap.insert(pair<string, varData *>(vecVar.at(1), curVar));
       return 5;
     }
-    if (data->progMap.count(vecVar.at(3))) {
-      varData *curVar1 = new varData(NULL, data->getValue(vecVar.at(3), 0),0);
-      data->progMap.insert(pair<string, varData *>(vecVar.at(1), curVar1));
-    } else { // value is not in the map
-      float value = stof(vecVar.at(3));
-      varData* curVar3 = new varData("", value,0); // take care of expression
+    else { //var shlomo = heading
+
+
+      Interpreter* i1 = new Interpreter();
+      string varList = data->createSetVarString();
+      i1->setVariables(varList);
+      Expression* exp = i1->interpret(vecVar.at(3));
+      float resultValue = exp->calculate();
+      delete(i1);
+
+
+      varData* curVar3 = new varData("", resultValue,0); // take care of expression
       data->progMap.insert(pair<string, varData *>(vecVar.at(1), curVar3));
       return 4;
     }
   } else if (vecVar.at(0) != "var"){     // rudder = 3
     //take care of expression
-    data->setVal(vecVar.at(0),stod(vecVar.at(2)), 0);
+    Interpreter* i1 = new Interpreter();
+    string varList = data->createSetVarString();
+    i1->setVariables(varList);
+    Expression* exp = i1->interpret(vecVar.at(2));
+    float resultValue = exp->calculate();
+    delete(i1);
+
+
+    data->setVal(vecVar.at(0),resultValue, 0);
     ostringstream oss;
     oss << "set " << data->getSim(vecVar.at(0)) << " " << to_string((float)data->getValue(vecVar.at(0), 0)) << "\r\n";
     data->commandQueue.push(oss.str());

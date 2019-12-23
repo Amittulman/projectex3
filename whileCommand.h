@@ -9,6 +9,9 @@
 class whileCommand : public Command{
  public:
   int execute(vector<string> vec) override;
-};
 
+
+  };
+pair<float, float> calculateCondition(string str, string exp, int charsNum);
+static bool condition(string s);
 #endif //PROJECTEX3__WHILECOMMAND_H_

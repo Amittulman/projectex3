@@ -114,7 +114,7 @@ int i;
       } else {
         std::cout << "CLIENT: RUDDER 1 SENT" << std::endl;
       }*/
-      sleep(1.5);
+      //sleep(1.5);
       //char hello2[] = "set controls/flight/rudder -1\r\n";
 
 /*      int is_sent2 = send(client_socket, hello2, strlen(hello2), 0);

@@ -9,7 +9,6 @@
 class sleepCommand : public Command {
  public:
   int execute(vector<string> vec) override;
-  bool isParam(string line);
 };
 
 #endif //PROJECTEX3__SLEEPCOMMAND_H_

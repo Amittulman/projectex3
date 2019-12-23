@@ -3,24 +3,23 @@
 //
 
 #include "sleepCommand.h"
+#include "ex1.h"
+#include "dataManager.h"
 #include <unistd.h>
 #include <thread>
 #include <chrono>
 
 using namespace std::chrono_literals;
 int sleepCommand::execute(vector<string> vec) {
-  if (isParam(vec.at(1))) { // sleep(400)
-   std::chrono::milliseconds duration(stoi(vec.at(1)));
-    std::this_thread::sleep_for(duration);
-  } else { //sleep(20+rudder)
-
-
-  }
-
+  dataManager* data = dataManager::getInstance();
+  Interpreter* i1 = new Interpreter();
+  string varList = data->createSetVarString();
+  i1->setVariables(varList);
+  Expression* exp = i1->interpret(vec.at(1));
+  double timeToSleep = exp->calculate();
+  delete(i1);
+  std::chrono::milliseconds duration((int)timeToSleep);
+  std::this_thread::sleep_for(duration);
   return 2;
 }
-bool sleepCommand::isParam(string line) {
-  char* p;
-  strtol(line.c_str(), &p, 10);
-  return *p == 0;
-}
+

@@ -121,8 +121,8 @@ int serverLogic(){
 
 
     //writing back to client
-    char *hello = "SERVER :Hello, I can hear you! \n";
-    send(data->clientSocket, hello, strlen(hello), 0);
+    //char *hello = "SERVER :Hello, I can hear you! \n";
+    //send(data->clientSocket, hello, strlen(hello), 0);
   // std::cout << "SERVER :Hello message sent\n" << std::endl;
     //return 0;
   }
@@ -130,15 +130,67 @@ int serverLogic(){
 
 void splitDetails(string s) {
   dataManager *data = dataManager::getInstance();
+  string temp = "";
+  int i = 0;
+  while ( s[i] != '\n' && s[i] != string::npos){
+    temp += s[i];
+  }
+  temp+='\n';
+  char str[1024];
+  strcpy(str, temp.c_str());
+  i = 0;
+  char * pch;
+  //printf ("Splitting string \"%s\" into tokens:\n",str);
+  pch = strtok (str,",\n");
+  while (pch != NULL)
+  {
+    int bindDirection = data->simMap[data->simPath[i]]->direction;
+    if (bindDirection) { //The direction is from sim to program - update valudata->setVal(data->simPath[i], stod(currentValue), 1);
+      data->setVal(data->simPath[i], stod(pch), 1);
+    }
+    i++;
+    //printf ("%s\n",pch);
+    pch = strtok (NULL, ",\n");
+  }
+/*
   size_t prevPos = 0, position, position2;
   int i = 0;
-for (i = 0; i < 36; i++){
-  position = s.find(',');
-    string currentValue = s.substr(prevPos, position);
-    s = s.substr(position+1, s.length()-position-1 );
-    int bindDirection = data->simMap[data->simPath[i]]->direction;
-    if(bindDirection) { //The direction is from sim to program - update value
-      data->setVal(data->simPath[i], stof(currentValue), 1);
-    }
-}
+  //for (i = 0; i < 36; i++) {
+  char str[1024];
+  strcpy(str, temp.c_str());
+  int messageStrLen = strlen(str);
+    //char str[] ="";
+    char * pch;
+    char * p;
+    //printf ("Splitting string \"%s\" into tokens:\n", str);
+    pch = strtok (str,"\n");
+    while (pch != NULL)
+    {
+      //printf ("%s\n",pch);
+      p = strtok (pch, ",");
+      int bindDirection = data->simMap[data->simPath[i]]->direction;
+      if (bindDirection) { //The direction is from sim to program - update valudata->setVal(data->simPath[i], stod(currentValue), 1);
+        data->setVal(data->simPath[i], stod(pch), 1);
+      }
+      i++;
+    }*/
+ // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    /*if (i < 35) {
+      position = s.find(',');
+      string currentValue = s.substr(prevPos, position);
+      s = s.substr(position + 1, s.length() - position - 1);
+      int bindDirection = data->simMap[data->simPath[i]]->direction;
+      if (bindDirection) { //The direction is from sim to program - update value
+       data->setVal(data->simPath[i], stod(currentValue), 1);
+             }
+           } else {
+             position = s.find('\n');
+             string currentValue = s.substr(prevPos, position);
+             s = s.substr(position + 1, s.length() - position - 1);
+             int bindDirection = data->simMap[data->simPath[i]]->direction;
+             if (bindDirection) { //The direction is from sim to program - update value
+               data->setVal(data->simPath[i], stod(currentValue), 1);
+             }
+    }*/
+  //}
 }

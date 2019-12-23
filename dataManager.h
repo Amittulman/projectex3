@@ -81,6 +81,8 @@ class dataManager {
           continue;
         else if (ip.at(i) == '\\')
           continue;
+        else if (ip.at(i) == ' ')
+          continue;
         newIP += ip.at(i);
       }
       if(newIP.at(0) == '/'){
