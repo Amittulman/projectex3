@@ -11,6 +11,9 @@ using namespace std;
 
 void Parser::parse() {
   dataManager* data = dataManager::getInstance();
+  if (data == NULL){
+    int j;
+  }
   vector<string> lex = this->lexVector;
   int vecSize = lex.size();
   int index = 0;

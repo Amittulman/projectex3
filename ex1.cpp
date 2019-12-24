@@ -480,8 +480,13 @@ string origStr = str;
     if ((popue == "-") || (popue == "+") || (popue == "*") || (popue == "/")) {
       exp1 = expStack.top();
       expStack.pop();
-      exp2 = expStack.top();
-      expStack.pop();
+      if (expStack.empty()){
+        exp2 = new Value (0);
+      }
+      else {
+        exp2 = expStack.top();
+        expStack.pop();
+      }
       if (popue == "-") {
         Expression *newExpMin = new Minus(exp2, exp1);
         expStack.push(newExpMin);

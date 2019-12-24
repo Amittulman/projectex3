@@ -98,7 +98,7 @@ int serverLogic(){
     //reading from client
     int valread = read(data->clientSocket, buffer, 1024);
 
-    std::cout <<"Data from sim: " << buffer << std::endl;
+    //std::cout <<"Data from sim: " << buffer << std::endl;
 
     //string val = to_string(data->simMap["instrumentation/gps/indicated-ground-speed-kt"]->val); // --------------------------------------------------- Debug -----------------
     //std::cout <<"speed: " << val << std::endl; // --------------------------------------------------- Debug -----------------
@@ -115,7 +115,9 @@ int serverLogic(){
 void splitDetails(string s, int valread) {
 
 dataManager *data = dataManager::getInstance();
-
+if (s[0] == ',') {
+  s = s.substr(1,s.length()-1);
+}
 string cutS = "";
 string copyS = s;
 int copLen = copyS.length();
@@ -132,15 +134,19 @@ int cutLen =  cutS.length();
   size_t found = cutS.find(",");
   if (found != std::string::npos) {
     string toList = cutS.substr(0, found);
+    string newString = cleanString(toList);
     int bindDirection = data->simMap[data->simPath[counter]]->direction;
     if (bindDirection)  //The direction is from sim to program - update value
-      data->setVal(data->simPath[counter], stod(cutS), 1);
+      data->setVal(data->simPath[counter], stod(newString), 1);
     counter++;
     cutS = cutS.substr(found + 1, cutS.size());
     } else {
+      string toList = cutS.substr(0, cutS.length() -1 );
       int bindDirection = data->simMap[data->simPath[counter]]->direction;
-      if (bindDirection) { //The direction is from sim to program - update value
-        data->setVal(data->simPath[counter], stod(cutS), 1);
+    string newString = cleanString(toList);
+
+    if (bindDirection) { //The direction is from sim to program - update value
+        data->setVal(data->simPath[counter], stod(newString), 1);
         cutS = "";
         counter++;
         break;
@@ -151,4 +157,23 @@ int cutLen =  cutS.length();
 
 
 }
+
+string cleanString(string ip)
+{
+  int len = ip.length();
+  string newIP = "";
+  for (int i = 0; i < len; i++) {
+    if (ip.at(i) == '-')
+      newIP += ip.at(i);
+    else if (ip.at(i) == '.')
+      newIP += ip.at(i);
+    else if (isdigit(ip.at(i)))
+      newIP += ip.at(i);
+    continue;  }
+
+  return newIP;
+}
+
+
+
 

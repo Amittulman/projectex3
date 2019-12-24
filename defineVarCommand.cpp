@@ -54,6 +54,9 @@ int defineVarCommand::execute(vector<string> vecVar) {
       return 4;
     }
   } else if (vecVar.at(0) != "var"){     // rudder = 3
+    if(!vecVar.at(0).compare("rudder")){
+      int kl;
+    }
     //take care of expression
     Interpreter* i1 = new Interpreter();
     string varList = data->createSetVarString();

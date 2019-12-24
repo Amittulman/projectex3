@@ -72,12 +72,10 @@ int openClient(string ip, string port) {
 
   std::cout << "CLIENT: client after connect " << std::endl;
 
-
     //if here we made a connection
 while(data->flagFirstData == 0){
 int i;
 }
-
   while (true) {
     if (data->mtxFirstData.try_lock()) {
 
@@ -133,4 +131,3 @@ int i;
 
   close(client_socket);
 }
-

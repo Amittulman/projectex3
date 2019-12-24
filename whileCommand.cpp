@@ -24,10 +24,15 @@ int whileCommand::execute(vector<string> vec) {
   while (cond) { //send to function to check the condition
     std::cout << "In the while" << endl;
     par = new Parser(newVector);
+    if (!(vec.at(1).compare( "alt < 1000"))){
+      int j;
+    }
     par->parse();
     cond = condition(cleanS);
+    std::cout << "The condiotion: " << cond << endl;
+
   }
-  delete(par);
+  //delete(par);
   return i + 1;
 }
 

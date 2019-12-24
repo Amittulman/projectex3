@@ -17,5 +17,6 @@ class openServerCommand : public Command {
 int openServer(string port);
 int serverLogic();
 void splitDetails(string s, int valread);
+string cleanString(string ip);
 
 #endif //PROJECTEX3__OPENSERVERCOMMAND_H_
