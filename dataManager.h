@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include <thread>
 #include <mutex>
+#include <iostream>
 #include <queue>
 using namespace std;
 
@@ -62,9 +63,18 @@ class dataManager {
   }
 
   void setVal(string key, double val, int sim) {
+/*    if(!key.compare("instrumentation/heading-indicator/offset-deg")){
+      cout<< "got value to setter :" << val << endl;
+
+    }*/
     mtxVal.lock();
     if (sim == 1) {
       simMap[key]->val = val;
+/*
+      if(!key.compare("instrumentation/heading-indicator/offset-deg"))
+        cout<< "succeeded updating heading to :" << simMap[key]->val << endl;
+*/
+
     } else {
       progMap[key]->val = val;
     }

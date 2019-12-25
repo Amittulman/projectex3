@@ -138,6 +138,14 @@ int cutLen =  cutS.length();
     int bindDirection = data->simMap[data->simPath[counter]]->direction;
     if (bindDirection)  //The direction is from sim to program - update value
       data->setVal(data->simPath[counter], stod(newString), 1);
+    // ----------------------------Debug-------------------------------
+    if (counter == 3) {
+      cout<< "heading in server:" << newString << endl;
+      cout<< "heading in server after stod:" << stod(newString) << endl;
+      cout<< "heading in progmap:" << data->progMap["heading"]->val << endl;
+      cout<< "the sim:" << data->simPath[counter] << endl;
+
+    }
     counter++;
     cutS = cutS.substr(found + 1, cutS.size());
     } else {
