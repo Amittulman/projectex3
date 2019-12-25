@@ -6,6 +6,7 @@
 #include "openServerCommand.h"
 #include "connectCommand.h"
 #include "dataManager.h"
+#include "funcCommand.h"
 
 using namespace std;
 
@@ -25,13 +26,22 @@ void Parser::parse() {
         newVec.push_back(lex[i]);
       }
       index += c->execute(newVec);
-    } else { //not in tha commandMap : warp = 5
-      Command* c = data->commandsMap["var"];
-      vector<string> newVec;
-      for (int i = index; i < vecSize; i++) {
-        newVec.push_back(lex[i]);
-      }
-      index += c->execute(newVec);
-    }
+    } else { //not in the commandMap : warp = 5 or function(var);
+        if (lex.at(index+1) != "="){
+          cout<<"in func"<<endl;
+          vector<string> newVec;
+          for (int i = index; i < vecSize; i++) {
+            newVec.push_back(lex[i]);
+          }
+          index+=funcIt(newVec);
+        } else {
+        Command* c = data->commandsMap["var"];
+        vector<string> newVec;
+        for (int i = index; i < vecSize; i++) {
+          newVec.push_back(lex[i]);
+        }
+        index += c->execute(newVec);
+       }
+   }
   }
 }

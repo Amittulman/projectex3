@@ -58,7 +58,6 @@ int defineVarCommand::execute(vector<string> vecVar) {
     ostringstream oss;
     oss << "set " << data->getSim(vecVar.at(0)) << " " << to_string((float)data->getValue(vecVar.at(0), 0)) << "\r\n";
     data->commandQueue.push(oss.str());
-    std::cout << "PUSHED: " << oss.str() << std::endl;
     return 3;
   }
 }

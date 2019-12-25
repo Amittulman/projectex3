@@ -12,6 +12,6 @@ class whileCommand : public Command{
 
 
   };
-pair<float, float> calculateCondition(string str, string exp, int charsNum);
+static pair<float, float> calculateCondition(string str, string exp, int charsNum);
 static bool condition(string s);
 #endif //PROJECTEX3__WHILECOMMAND_H_

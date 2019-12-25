@@ -10,6 +10,7 @@
 #include "ifCommand.h"
 #include "printCommand.h"
 #include "sleepCommand.h"
+#include "funcCommand.h"
 
 using namespace std;
 
@@ -98,12 +99,14 @@ initializerMaps() {
   commandsMap.insert(pair<string,Command*>("if",new ifCommand()));
   commandsMap.insert(pair<string,Command*>("Print",new printCommand()));
   commandsMap.insert(pair<string,Command*>("Sleep",new sleepCommand()));
+  commandsMap.insert(pair<string,Command*>("$func",new funcCommand()));
+
 }
 dataManager* dataManager::dataInstance = 0;
 
 
 dataManager::~dataManager() {
-  for (auto& it: progMap) { //delete all var data in the map
+  for (auto& it: simMap) { //delete all var data in the map
     delete(it.second);
   }
 

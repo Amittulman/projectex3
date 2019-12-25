@@ -7,6 +7,7 @@
 #include "Expression.h"
 #include <map>
 #include "stdlib.h"
+#include "dataManager.h"
 #include <bits/stdc++.h>
 #include <string.h>
 #include <deque>
@@ -180,12 +181,24 @@ void Interpreter::setVariables(string str) {
 }
 
 Expression* Interpreter::interpret(string str) {
+
 string origStr = str;
   char* end = 0;
   double val = strtod(origStr.c_str(), &end);
   if (end != origStr.c_str() && *end == '\0' && val != HUGE_VAL){
     return new Value(stod(origStr));
   }
+  dataManager *data = dataManager::getInstance();
+  str = data->cleanString(str);
+
+/*  int len = str.length();
+  string newS = "";
+  for (int i = 0; i < len; i++) {
+    if (str.at(i) == ' ')
+      continue;
+    newS += str.at(i);
+  }
+  str = newS;*/
 
   for (unsigned long j = 0; j < str.size(); j++) {
     if (j == 0) {

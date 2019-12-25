@@ -22,11 +22,7 @@ int whileCommand::execute(vector<string> vec) {
   // ########### check type of condition
   bool cond = condition(cleanS);
   while (cond) { //send to function to check the condition
-    std::cout << "In the while" << endl;
     par = new Parser(newVector);
-    if (!(vec.at(1).compare( "alt < 1000"))){
-      int j;
-    }
     par->parse();
     cond = condition(cleanS);
   }
@@ -34,7 +30,7 @@ int whileCommand::execute(vector<string> vec) {
   return i + 1;
 }
 
-bool condition(string s) {
+static bool condition(string s) {
   size_t prevPos = 0, position, position2;
   if (position = s.find("==") != string::npos) {
     pair<float,float> condExpressions = calculateCondition(s, "==", 2);
@@ -78,7 +74,7 @@ bool condition(string s) {
 
   }
 
-  pair<float, float> calculateCondition(string s, string exp, int charsNumber){
+  static pair<float, float> calculateCondition(string s, string exp, int charsNumber){
     dataManager *data = dataManager::getInstance();
     int position = s.find(exp);
     string left = s.substr(0, position);

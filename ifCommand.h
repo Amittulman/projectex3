@@ -11,4 +11,7 @@ class ifCommand: public Command {
   int execute(vector<string> vec) override;
 };
 
+pair<float, float> calculateCondition1(string s, string exp, int charsNumber);
+bool condition1(string s);
+
 #endif //PROJECTEX3__IFCOMMAND_H_

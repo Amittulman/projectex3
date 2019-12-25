@@ -79,7 +79,6 @@ int i;
 
       while (!data->commandQueue.empty()) { //there are commands inside
         string popS = data->commandQueue.front();
-        std::cout << "POPPED: " << popS << std::endl;
 
         data->commandQueue.pop();
         int messageLen = popS.length();
@@ -93,8 +92,6 @@ int i;
         int is_sent = send(client_socket, massage, strlen(massage), 0);
         if (is_sent == -1) {
           std::cout << "CLIENT: Error sending message" << std::endl;
-        } else {
-          std::cout << "CLIENT: " << massage << std::endl;
         }
 
       }

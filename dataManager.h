@@ -24,6 +24,7 @@ class dataManager {
   static dataManager* dataInstance;
   unordered_map<string,varData*> progMap;
   unordered_map<string,Command*> commandsMap;
+  unordered_map<string,vector<string>> funcMap;
   map<string,varData*> simMap;
   string simPath[36];
   int serverSocket;
@@ -111,6 +112,7 @@ class dataManager {
     }
     return curSet;
     }
+
 };
 
 #endif //PROJECTEX3__DATAMANAGER_H_
