@@ -14,17 +14,16 @@ int printCommand::execute(vector<string> vec) {
     return 2;
   } else { //print expression
     dataManager *data = dataManager::getInstance();
-
     Interpreter* i1 = new Interpreter();
     string varList = data->createSetVarString();
     i1->setVariables(varList);
     Expression* printString = i1->interpret(vec.at(1));
     double intString = printString->calculate();
     delete(i1);
+    delete(printString);
 
     std::cout << to_string(intString) << std::endl;
     return 2;
-
     }
   }
 

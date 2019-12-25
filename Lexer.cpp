@@ -86,35 +86,3 @@ vector<string> Lexer::split(string s){
 
   return lexedVector;
 }
-
-
-
-/*while ((position = commandsLine.find_first_of("<>()-={} ,\"/") != string::npos)) {
-position = prevPos;
-f
-if (position > prevPos) {
-    if (commandsLine[position] == '<') {
-        if (commandsLine[position + 1] == '-') {
-            lexedVector.push_back(commandsLine.substr(position, position + 1));
-            position += 2;
-        }
-    }
-    if (commandsLine[position] == '-') {
-        if (commandsLine[position + 1] == '>') {
-            lexedVector.push_back(commandsLine.substr(position, position + 1));
-            position += 2;
-        }
-    }
-    if (commandsLine[position] == '(') {
-        lexedVector.push_back(commandsLine.substr(prevPos, position - 1));
-    }
-    if (commandsLine[position] == ')') {
-        lexedVector.push_back(commandsLine.substr(prevPos, position - 1));
-    }
-    if (commandsLine[position] == ' ') {
-        lexedVector.push_back(commandsLine.substr(prevPos, position - 1));
-    }
-
-
-
-}*/

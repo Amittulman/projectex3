@@ -5,8 +5,6 @@
 #ifndef PROJECTEX3__DATAMANAGER_H_
 #define PROJECTEX3__DATAMANAGER_H_
 
-#include "server.h"
-#include "client.h"
 #include "varData.h"
 #include "Command.h"
 #include <map>
@@ -32,17 +30,27 @@ class dataManager {
   int clientSocket;
   int flagFirstData = 0;
   mutex mtxVal;
+  mutex mtxDone;
   mutex mtxFirstData;
   thread serverThread;
   thread clientThread;
   queue<string> commandQueue;
-  void initializerMaps();
 
+  void initializerMaps();
+  int done = 0;
+  virtual ~dataManager();
   static dataManager* getInstance() {
     if (!dataInstance) {
       dataInstance = new dataManager();
     }
     return dataInstance;
+  }
+
+  int IsDone() {
+    mtxDone.lock();
+    double newDone = done;
+    mtxDone.unlock();
+    return newDone;
   }
 
   double getValue(string s, int sim) {
@@ -63,17 +71,9 @@ class dataManager {
   }
 
   void setVal(string key, double val, int sim) {
-/*    if(!key.compare("instrumentation/heading-indicator/offset-deg")){
-      cout<< "got value to setter :" << val << endl;
-
-    }*/
     mtxVal.lock();
     if (sim == 1) {
       simMap[key]->val = val;
-/*
-      if(!key.compare("instrumentation/heading-indicator/offset-deg"))
-        cout<< "succeeded updating heading to :" << simMap[key]->val << endl;
-*/
 
     } else {
       progMap[key]->val = val;
@@ -82,8 +82,7 @@ class dataManager {
     return;
   }
 
-  static string cleanString(string ip)
-    {
+  static string cleanString(string ip) {
       int len = ip.length();
       string newIP = "";
       for (int i = 0; i < len; i++) {
@@ -112,7 +111,6 @@ class dataManager {
     }
     return curSet;
     }
-
 };
 
 #endif //PROJECTEX3__DATAMANAGER_H_

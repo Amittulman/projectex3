@@ -4,7 +4,6 @@
 
 #include "openServerCommand.h"
 #include "connectCommand.h"
-#include "server.h"
 #include <vector>
 #include <thread>
 #include "dataManager.h"
@@ -98,17 +97,17 @@ int serverLogic(){
     //reading from client
     int valread = read(data->clientSocket, buffer, 1024);
 
-    //std::cout <<"Data from sim: " << buffer << std::endl;
-
-    //string val = to_string(data->simMap["instrumentation/gps/indicated-ground-speed-kt"]->val); // --------------------------------------------------- Debug -----------------
-    //std::cout <<"speed: " << val << std::endl; // --------------------------------------------------- Debug -----------------
-
     if (data->flagFirstData == 0) {
       data->mtxFirstData.unlock();
     }
     data->flagFirstData = 1;  // first time information recieved
     splitDetails(buffer, valread);
 
+
+    if (data->IsDone()) {
+      close(data->serverSocket);
+      break;
+    }
   }
 }
 

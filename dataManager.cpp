@@ -100,3 +100,14 @@ initializerMaps() {
   commandsMap.insert(pair<string,Command*>("Sleep",new sleepCommand()));
 }
 dataManager* dataManager::dataInstance = 0;
+
+
+dataManager::~dataManager() {
+  for (auto& it: progMap) { //delete all var data in the map
+    delete(it.second);
+  }
+
+  for (auto& it: commandsMap) { //delete all the commands in the map
+    delete(it.second);
+  }
+}

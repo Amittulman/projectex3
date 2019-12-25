@@ -29,12 +29,10 @@ int connectCommand::execute (vector<string> vecClient) {
   int calculatrePort = portExp->calculate();
   int portNum = calculatrePort;
   delete(i1);
+  delete(portExp);
 
   data->clientThread = thread (openClient, this->ipClient, to_string(portNum));
   data->clientThread.detach();
-  //openClient(vecClient.at(0),vecClient.at(1));
-/*  thread t2(openClient, vecClient.at(0),vecClient.at(1));
-  t2.join();*/
   return 3;
 }
 
@@ -87,11 +85,6 @@ int i;
         int messageLen = popS.length();
         int messageSize = popS.size();
 
-/*        char massage[messageSize];
-        int i;
-        for (i = 0; i < messageSize; i++) {
-          massage[i] = popS[i];
-        }*/
         string temp = popS;
         char massage[1024];
         strcpy(massage, temp.c_str());
@@ -105,29 +98,12 @@ int i;
         }
 
       }
-      //char hello[] = "set controls/flight/rudder 1\r\n";
-/*      int is_sent = send(client_socket, massage, strlen(hello), 0);
-      if (is_sent == -1) {
-        std::cout << "CLIENT: Error sending message" << std::endl;
-      } else {
-        std::cout << "CLIENT: RUDDER 1 SENT" << std::endl;
-      }*/
-      //sleep(1.5);
-      //char hello2[] = "set controls/flight/rudder -1\r\n";
-
-/*      int is_sent2 = send(client_socket, hello2, strlen(hello2), 0);
-      if (is_sent2 == -1) {
-        std::cout << "CLIENT: Error sending message" << std::endl;
-      } else {
-        std::cout << "CLIENT: RUDDER -1 SENT" << std::endl;
-      }
-      sleep(1.5);*/
       data->mtxFirstData.unlock();
     }
-  }
-    char buffer[1024] = {0};
-    int valread = read(client_socket, buffer, 1024);
-    //std::cout<<buffer<<std::endl;
 
-  close(client_socket);
+    if (data->IsDone()) {
+      close(client_socket);
+      break;
+    }
+  }
 }

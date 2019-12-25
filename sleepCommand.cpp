@@ -18,6 +18,7 @@ int sleepCommand::execute(vector<string> vec) {
   Expression* exp = i1->interpret(vec.at(1));
   double timeToSleep = exp->calculate();
   delete(i1);
+  delete (exp);
   std::chrono::milliseconds duration((int)timeToSleep);
   std::this_thread::sleep_for(duration);
   return 2;

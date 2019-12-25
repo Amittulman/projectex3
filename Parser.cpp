@@ -32,30 +32,6 @@ void Parser::parse() {
         newVec.push_back(lex[i]);
       }
       index += c->execute(newVec);
-
     }
-
   }
-/*  thread t1(openServer, data->portServer);
-  t1.join();
-  thread t2(serverLogic);*/
-  //thread t3(openClient, data->ipClient, data->portClient);
-/*  while (true) {
-    int j = 0;
-  }*/
-  /*while (index < vecSize) {
-    Command* c = data->commandsMap.at(lex.at(index));
-    if (c != NULL) {
-      vector<string> newVec;
-      for (int i = index + 1; i < vecSize; i++) {
-        newVec.push_back(lex[i]);
-      }
-      index  += c->execute(newVec);
-
-    }
-  }*/
-/*  while (true) {
-    int j = 0;
-
-  }*/
 }

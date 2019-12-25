@@ -14,9 +14,6 @@ class Parser {
   Parser(vector<string> vecLexer) {
     this->lexVector = vecLexer;
   }
-   ~Parser() {
-    delete (this);
-  }
   void parse();
 };
 

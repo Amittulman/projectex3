@@ -2,25 +2,15 @@
 // Created by amittulman on 18/12/2019.
 //
 
-
-
-#include "connectCommand.h"
-#include "client.h"
 #include "defineVarCommand.h"
 #include "dataManager.h"
 #include <sstream>
-
-#include <sys/socket.h>
 #include <string>
 #include <iostream>
-#include <unistd.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <string.h>
-#include <thread>
 #include <vector>
 #include "Expression.h"
 #include "ex1.h"
+#include "Command.h"
 
 using namespace std;
 
@@ -40,14 +30,12 @@ int defineVarCommand::execute(vector<string> vecVar) {
     }
     else { //var shlomo = heading
 
-
       Interpreter* i1 = new Interpreter();
       string varList = data->createSetVarString();
       i1->setVariables(varList);
       Expression* exp = i1->interpret(vecVar.at(3));
       float resultValue = exp->calculate();
       delete(i1);
-
 
       varData* curVar3 = new varData("", resultValue,0); // take care of expression
       data->progMap.insert(pair<string, varData *>(vecVar.at(1), curVar3));
@@ -64,7 +52,7 @@ int defineVarCommand::execute(vector<string> vecVar) {
     Expression* exp = i1->interpret(vecVar.at(2));
     float resultValue = exp->calculate();
     delete(i1);
-
+    delete(exp);
 
     data->setVal(vecVar.at(0),resultValue, 0);
     ostringstream oss;
@@ -72,8 +60,6 @@ int defineVarCommand::execute(vector<string> vecVar) {
     data->commandQueue.push(oss.str());
     std::cout << "PUSHED: " << oss.str() << std::endl;
     return 3;
-    // ########### mutex?
   }
-
 }
 

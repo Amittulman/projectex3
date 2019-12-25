@@ -29,10 +29,8 @@ int whileCommand::execute(vector<string> vec) {
     }
     par->parse();
     cond = condition(cleanS);
-    std::cout << "The condiotion: " << cond << endl;
-
   }
-  //delete(par);
+  delete(par);
   return i + 1;
 }
 
@@ -91,10 +89,12 @@ bool condition(string s) {
     Expression* exp3 = i1->interpret(left);
     float leftResult = exp3->calculate();
     delete(i1);
+    delete(exp3);
     Interpreter* i2 = new Interpreter();
     i2->setVariables(varList);
     Expression* exp2 = i2->interpret(right);
     float rightResult = exp2->calculate();
     delete(i2);
+    delete(exp2);
     return pair<float,float>(leftResult,rightResult);
 }
