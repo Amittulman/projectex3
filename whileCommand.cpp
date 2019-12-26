@@ -10,7 +10,6 @@
 int whileCommand::execute(vector<string> vec) {
   dataManager *data = dataManager::getInstance();
   int i = 0;
-  Parser* par;
   vector<string> newVector;
   string cleanS = data->cleanString(vec.at(1));
   while (vec.at(i) != "}") { //create vector with all commands
@@ -19,14 +18,18 @@ int whileCommand::execute(vector<string> vec) {
     }
     i++;
   }
+
   // ########### check type of condition
   bool cond = condition(cleanS);
+  Parser* parse=new Parser(newVector);
+
   while (cond) { //send to function to check the condition
-    par = new Parser(newVector);
-    par->parse();
+    parse->parse();
     cond = condition(cleanS);
   }
-  delete(par);
+  if (parse != NULL) {
+    delete(parse);
+  }
   return i + 1;
 }
 

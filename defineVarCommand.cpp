@@ -61,4 +61,3 @@ int defineVarCommand::execute(vector<string> vecVar) {
     return 3;
   }
 }
-
