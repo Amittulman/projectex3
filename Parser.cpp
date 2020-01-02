@@ -18,29 +18,30 @@ void Parser::parse() {
   vector<string> lex = this->lexVector;
   int vecSize = lex.size();
   int index = 0;
-  while (index < vecSize) {
+  while (index < vecSize) { //iterate over the vector
+    //try to catch the command from map
     Command* c = data->commandsMap[lex.at(index)];
-    if (c != NULL) {
+    if (c != NULL) { //check if the command is exists
       vector<string> newVec;
       for (int i = index; i < vecSize; i++) {
         newVec.push_back(lex[i]);
       }
-      index += c->execute(newVec);
+      index += c->execute(newVec); //jump in the vector after execute the command
     } else { //not in the commandMap : warp = 5 or function(var);
-        if (lex.at(index+1) != "="){
+        if (lex.at(index+1) != "="){ //identify function
           cout<<"in func"<<endl;
           vector<string> newVec;
           for (int i = index; i < vecSize; i++) {
             newVec.push_back(lex[i]);
           }
-          index+=funcIt(newVec);
-        } else {
+          index+=funcIt(newVec);//jump in the vector after execute the command
+        } else { //identify if var
         Command* c = data->commandsMap["var"];
         vector<string> newVec;
         for (int i = index; i < vecSize; i++) {
           newVec.push_back(lex[i]);
         }
-        index += c->execute(newVec);
+        index += c->execute(newVec);//jump in the vector after execute the command
        }
    }
   }

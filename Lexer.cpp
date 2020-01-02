@@ -22,11 +22,12 @@ vector<string> Lexer::split(string s){
     perror("Error open");
     exit(EXIT_FAILURE);
   }
+  //iterate over the lines of the file
   while (getline(myfile, commandsLine)) {
+    //delete tabs
     while (commandsLine[0] == '\t') {
       commandsLine = commandsLine.substr(1,commandsLine.length() - 1);
     }
-    //commandsLine.erase(std::remove(commandsLine.begin(), commandsLine.end(), '\t'), commandsLine.end());
     while (commandsLine[0] == ' ') {
       commandsLine = commandsLine.substr(1,commandsLine.length() - 1);
     }

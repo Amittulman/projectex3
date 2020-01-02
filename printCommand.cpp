@@ -14,6 +14,7 @@ int printCommand::execute(vector<string> vec) {
     return 2;
   } else { //print expression
     dataManager *data = dataManager::getInstance();
+    //SY
     Interpreter* i1 = new Interpreter();
     string varList = data->createSetVarString();
     i1->setVariables(varList);

@@ -33,6 +33,7 @@ int whileCommand::execute(vector<string> vec) {
   return i + 1;
 }
 
+//this method check the condition and return TRUE or FALSE
 static bool condition(string s) {
   size_t prevPos = 0, position, position2;
   if (position = s.find("==") != string::npos) {
@@ -77,9 +78,11 @@ static bool condition(string s) {
 
   }
 
+  //this method calculate the condition and return the values in pair
   static pair<float, float> calculateCondition(string s, string exp, int charsNumber){
     dataManager *data = dataManager::getInstance();
     int position = s.find(exp);
+    //SY for the condition of the while
     string left = s.substr(0, position);
     string right = s.substr(position+charsNumber, s.length()-position-charsNumber);
     Interpreter* i1 = new Interpreter();

@@ -10,6 +10,7 @@ int ifCommand::execute(vector<string> vec) {
   int i = 0;
   dataManager *data = dataManager::getInstance();
   vector<string> newVector;
+  //push the commands that in the scope to new vector
   while (vec.at(i) != "}") {
     if (i > 2) {
       newVector.push_back(vec.at(i));
@@ -18,9 +19,10 @@ int ifCommand::execute(vector<string> vec) {
   }
   string s =vec.at(1);
   s = data->cleanString(s);
+  //send to function to check the condition
   bool cond = condition1(s);
   Parser* par;
-  if (cond) { //send to function to check the condition
+  if (cond) {
     par = new Parser(newVector);
     par->parse();
   }
@@ -28,7 +30,7 @@ int ifCommand::execute(vector<string> vec) {
   return i + 1;
 }
 
-
+//function for check the condition
 bool condition1(string s){
   size_t prevPos = 0, position, position2;
   if (position = s.find("==") != string::npos) {
@@ -74,6 +76,7 @@ bool condition1(string s){
 pair<float, float> calculateCondition1(string s, string exp, int charsNumber){
   dataManager *data = dataManager::getInstance();
   int position = s.find(exp);
+  //SY for condition
   string left = s.substr(0, position);
   string right = s.substr(position+charsNumber, s.length()-position-charsNumber);
   Interpreter* i1 = new Interpreter();

@@ -21,7 +21,7 @@ int defineVarCommand::execute(vector<string> vecVar) {
     if (vecVar.at(3) == "sim") { // got sim from text
       string s = vecVar.at(4);
       s = data->cleanString(s);
-      varData *curVar = data->simMap[s];
+      varData *curVar = data->simMap[s]; //get the var instance from map
       if (vecVar.at(2)[0] == '<') {
         data->simMap[s]->direction = 1;
       }
@@ -29,7 +29,7 @@ int defineVarCommand::execute(vector<string> vecVar) {
       return 5;
     }
     else { //var shlomo = heading
-
+      //SY
       Interpreter* i1 = new Interpreter();
       string varList = data->createSetVarString();
       i1->setVariables(varList);
@@ -37,7 +37,7 @@ int defineVarCommand::execute(vector<string> vecVar) {
       float resultValue = exp->calculate();
       delete(i1);
 
-      varData* curVar3 = new varData("", resultValue,0); // take care of expression
+      varData* curVar3 = new varData("", resultValue,0);
       data->progMap.insert(pair<string, varData *>(vecVar.at(1), curVar3));
       return 4;
     }
@@ -45,7 +45,7 @@ int defineVarCommand::execute(vector<string> vecVar) {
     if(!vecVar.at(0).compare("rudder")){
       int kl;
     }
-    //take care of expression
+  //SY
     Interpreter* i1 = new Interpreter();
     string varList = data->createSetVarString();
     i1->setVariables(varList);
@@ -56,6 +56,7 @@ int defineVarCommand::execute(vector<string> vecVar) {
 
     data->setVal(vecVar.at(0),resultValue, 0);
     ostringstream oss;
+    //store the command
     oss << "set " << data->getSim(vecVar.at(0)) << " " << to_string((float)data->getValue(vecVar.at(0), 0)) << "\r\n";
     data->commandQueue.push(oss.str());
     return 3;

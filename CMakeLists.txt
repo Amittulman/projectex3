@@ -1,6 +1,39 @@
 cmake_minimum_required(VERSION 3.15)
-project(projectex3)
+project(ex3)
 
 set(CMAKE_CXX_STANDARD 14)
 SET(CMAKE_CXX_FLAGS -pthread)
-add_executable(projectex3 Lexer.cpp Lexer.h Command.h Parser.cpp Parser.h openServerCommand.cpp openServerCommand.h connectCommand.cpp connectCommand.h dataManager.cpp dataManager.h varData.cpp varData.h main.cpp defineVarCommand.cpp defineVarCommand.h printCommand.cpp printCommand.h sleepCommand.cpp sleepCommand.h whileCommand.cpp whileCommand.h ifCommand.cpp ifCommand.h ex1.h ex1.cpp Expression.cpp Expression.h funcCommand.cpp funcCommand.h)
+
+include_directories(.)
+
+add_executable(ex3
+        Command.h
+        connectCommand.cpp
+        connectCommand.h
+        dataManager.cpp
+        dataManager.h
+        defineVarCommand.cpp
+        defineVarCommand.h
+        ex1.cpp
+        ex1.h
+        Expression.cpp
+        Expression.h
+        funcCommand.cpp
+        funcCommand.h
+        ifCommand.cpp
+        ifCommand.h
+        Lexer.cpp
+        Lexer.h
+        main.cpp
+        openServerCommand.cpp
+        openServerCommand.h
+        Parser.cpp
+        Parser.h
+        printCommand.cpp
+        printCommand.h
+        sleepCommand.cpp
+        sleepCommand.h
+        varData.cpp
+        varData.h
+        whileCommand.cpp
+        whileCommand.h)

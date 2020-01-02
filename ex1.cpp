@@ -13,7 +13,7 @@
 #include <deque>
 
 using namespace std;
-
+// this is a SY class
 double Variable::calculate() {
   return this->num;
 }
@@ -190,15 +190,6 @@ string origStr = str;
   }
   dataManager *data = dataManager::getInstance();
   str = data->cleanString(str);
-
-/*  int len = str.length();
-  string newS = "";
-  for (int i = 0; i < len; i++) {
-    if (str.at(i) == ' ')
-      continue;
-    newS += str.at(i);
-  }
-  str = newS;*/
 
   for (unsigned long j = 0; j < str.size(); j++) {
     if (j == 0) {

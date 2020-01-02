@@ -23,8 +23,9 @@ using namespace std;
 
 int openServerCommand::execute (vector<string> vecServer) {
   dataManager* data = dataManager::getInstance();
+  //store network value in singelthon
   this->portServer = vecServer.at(1);
-  //int responseCode = openServer();
+  //open threads
   thread t1(openServer, this->portServer);
   t1.join();
   data->serverThread = thread (serverLogic);
@@ -79,8 +80,6 @@ int openServer(string port) {
   data->clientSocket = accept(data->serverSocket, (struct sockaddr *) &address,
                              &addrlen);
 
-  std::cout << "SERVER : server after accept " << std::endl;
-
   if (data->clientSocket == -1) {
     std::cerr << "SERVER : Error accepting client" << std::endl;
     return -4;
@@ -89,7 +88,6 @@ int openServer(string port) {
 
 int serverLogic(){
   dataManager *data = dataManager::getInstance();
-  //close(socketfd); //closing the listening socket
   char buffer[1024] = {0};
 
   while(1) {
@@ -110,6 +108,7 @@ int serverLogic(){
   }
 }
 
+//this method split the data(values) from simulator
 void splitDetails(string s, int valread) {
 
 dataManager *data = dataManager::getInstance();
@@ -120,7 +119,8 @@ string cutS = "";
 string copyS = s;
 int copLen = copyS.length();
 int i =0;
-while (copyS[i] != '\n') {
+//
+while (copyS[i] != '\n' && copyS[i] != string::npos) {
   cutS += copyS[i];
   i++;
 }
@@ -139,14 +139,6 @@ int cutLen =  cutS.length();
     }
     if (bindDirection)  //The direction is from sim to program - update value
       data->setVal(data->simPath[counter], stod(newString), 1);
-    // ----------------------------Debug-------------------------------
-/*    if (counter == 3) {
-      cout<< "heading in server:" << newString << endl;
-      cout<< "heading in server after stod:" << stod(newString) << endl;
-      cout<< "heading in progmap:" << data->progMap["heading"]->val << endl;
-      cout<< "the sim:" << data->simPath[counter] << endl;
-
-    }*/
     counter++;
     cutS = cutS.substr(found + 1, cutS.size());
     } else {

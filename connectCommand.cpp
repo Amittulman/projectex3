@@ -18,10 +18,12 @@
 using namespace std;
 
 int connectCommand::execute (vector<string> vecClient) {
+  //store network data in singelton
   dataManager* data = dataManager::getInstance();
   this->ipClient = vecClient.at(1);
   this->portClient = vecClient.at(2);
 
+  //run SY on port number (5000 + 400 + heading)
   Interpreter* i1 = new Interpreter();
   string varList = data->createSetVarString();
   i1->setVariables(varList);
@@ -31,6 +33,7 @@ int connectCommand::execute (vector<string> vecClient) {
   delete(i1);
   delete(portExp);
 
+  //open thread
   data->clientThread = thread (openClient, this->ipClient, to_string(portNum));
   data->clientThread.detach();
   return 3;
@@ -39,7 +42,6 @@ int connectCommand::execute (vector<string> vecClient) {
 
 int openClient(string ip, string port) {
   dataManager *data = dataManager::getInstance();
-
   const char *cstr = data->cleanString(ip).c_str();
 
   int portNum = stoi(port);
@@ -68,27 +70,24 @@ int openClient(string ip, string port) {
     std::cout << "CLIENT: Client is now connected to server" << std::endl;
   }
 
-  std::cout << "CLIENT: client after connect " << std::endl;
-
-    //if here we made a connection
+  //wait for first values from simulator to arrive to server
 while(data->flagFirstData == 0){
 int i;
 }
   while (true) {
+    //try to start sending commands to simulator
     if (data->mtxFirstData.try_lock()) {
 
       while (!data->commandQueue.empty()) { //there are commands inside
         string popS = data->commandQueue.front();
-
+        //pop command and send to simulator
         data->commandQueue.pop();
         int messageLen = popS.length();
         int messageSize = popS.size();
-
         string temp = popS;
         char massage[1024];
         strcpy(massage, temp.c_str());
         int messageStrLen = strlen(massage);
-
         int is_sent = send(client_socket, massage, strlen(massage), 0);
         if (is_sent == -1) {
           std::cout << "CLIENT: Error sending message" << std::endl;
@@ -97,7 +96,7 @@ int i;
       }
       data->mtxFirstData.unlock();
     }
-
+    //close the socket after the whole flight is done
     if (data->IsDone()) {
       close(client_socket);
       break;

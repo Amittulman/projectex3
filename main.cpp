@@ -6,9 +6,9 @@
 #include "Lexer.h"
 #include "Parser.h"
 
-int main() {
-  string s = "/home/amittulman/CLionProjects/projectex3/fly.txt";
-  vector<string> vecLexer = Lexer::split(s);
+int main(int argc,char *argv[]) {
+  string ss = argv[1];
+  vector<string> vecLexer = Lexer::split(ss);
   Parser* par = new Parser(vecLexer);
   par->parse();
   dataManager* data = dataManager::getInstance();

@@ -21,12 +21,14 @@ class dataManager {
     initializerMaps();
  }
  public:
+  //this is a singlethon object
   static dataManager* dataInstance;
   unordered_map<string,varData*> progMap;
   unordered_map<string,Command*> commandsMap;
   unordered_map<string,vector<string>> funcMap;
   map<string,varData*> simMap;
   string simPath[36];
+  //network values
   int serverSocket;
   int clientSocket;
   int flagFirstData = 0;
@@ -36,7 +38,6 @@ class dataManager {
   thread serverThread;
   thread clientThread;
   queue<string> commandQueue;
-
   void initializerMaps();
   int done = 0;
   virtual ~dataManager();
@@ -47,6 +48,7 @@ class dataManager {
     return dataInstance;
   }
 
+  //flag responsible from finishing
   int IsDone() {
     mtxDone.lock();
     double newDone = done;
@@ -54,6 +56,7 @@ class dataManager {
     return newDone;
   }
 
+  //get value of var. (by var name or by sim)
   double getValue(string s, int sim) {
     mtxVal.lock();
     double val;
@@ -66,11 +69,13 @@ class dataManager {
     return val;
   }
 
+  //get the sim of the var
   string getSim(string s) {
     string sim = progMap[s]->sim;
     return sim;
   }
 
+  //set the value of var
   void setVal(string key, double val, int sim) {
     mtxVal.lock();
     if (sim == 1) {
@@ -83,6 +88,7 @@ class dataManager {
     return;
   }
 
+  //this is function that is responsible for cleaning different strings
   static string cleanString(string ip) {
       int len = ip.length();
       string newIP = "";
@@ -101,6 +107,7 @@ class dataManager {
       return newIP;
     }
 
+   //this function is responsible for integrating with SY by creating a string with all the variables and values
   string createSetVarString() {
     string curSet="";
     for (auto& it: this->progMap) {
